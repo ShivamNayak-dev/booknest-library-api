@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from app.database.database import engine
+
 
 app = FastAPI(
     title="BookNest Library Management API",
@@ -22,4 +24,9 @@ def about():
     }
 
 
-# uvicorn app.main:app --reload
+@app.get("/test-db")
+def test_database():
+    with engine.connect() as connection:
+        return {
+            "message": "Database connection successful"
+        }
