@@ -3,6 +3,9 @@ from fastapi import FastAPI
 from app.database.database import Base, engine
 from app.models.author import Author
 from app.routers.author_router import router as author_router
+from app.routers.book_router import router as book_router
+
+from app.models.book import Book
 
 
 Base.metadata.create_all(bind=engine)
@@ -36,3 +39,4 @@ def about():
 
 
 app.include_router(author_router)
+app.include_router(book_router)
