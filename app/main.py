@@ -4,7 +4,9 @@ from app.database.database import Base, engine
 from app.models.author import Author
 from app.routers.author_router import router as author_router
 from app.routers.book_router import router as book_router
-
+from app.models.category import Category
+from app.models.book_category import BookCategory
+from app.routers.category_router import router as category_router
 from app.models.book import Book
 
 
@@ -40,3 +42,7 @@ def about():
 
 app.include_router(author_router)
 app.include_router(book_router)
+app.include_router(category_router)
+
+
+# uvicorn app.main:app --reload

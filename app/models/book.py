@@ -35,3 +35,8 @@ class Book(Base):
     author: Mapped["Author"] = relationship(
         back_populates="books"
     )
+
+    categories: Mapped[list["Category"]] = relationship(
+        secondary="book_categories",
+        back_populates="books"
+    )

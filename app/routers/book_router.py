@@ -48,6 +48,52 @@ def get_books(
     return service.get_all_books()
 
 
+@router.post(
+    "/{book_id}/categories/{category_id}",
+    response_model=BookResponse
+)
+def add_category_to_book(
+    book_id: int,
+    category_id: int,
+    service: BookService = Depends(get_book_service)
+):
+    book = service.add_category(
+        book_id,
+        category_id
+    )
+
+    if book is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Book or category not found"
+        )
+
+    return book
+
+
+@router.delete(
+    "/{book_id}/categories/{category_id}",
+    response_model=BookResponse
+)
+def remove_category_from_book(
+    book_id: int,
+    category_id: int,
+    service: BookService = Depends(get_book_service)
+):
+    book = service.remove_category(
+        book_id,
+        category_id
+    )
+
+    if book is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Book or category not found"
+        )
+
+    return book
+
+
 @router.get(
     "/{book_id}",
     response_model=BookResponse
